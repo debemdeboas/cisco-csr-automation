@@ -1,0 +1,6 @@
+# Ignore the backup files as they can get quite big and should not be versioned
+backup
+
+# Python environments
+venv
+env

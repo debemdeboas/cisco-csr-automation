@@ -1,0 +1,10 @@
+no logging console
+enable password cisco
+{% if no_ip_domain_lookup %}
+no ip domain lookup
+{% endif %}
+ip domain name virl.info
+{% if log_on_login %}
+login on-success log
+{% endif %}
+subscriber templating

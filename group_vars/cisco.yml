@@ -1,0 +1,11 @@
+---
+
+# Default login banner for all Cisco routers
+login_banner: |
+  ----------------------------------------------------------
+                           NOTICE
+  
+  This Cisco router is managed by @debemdeboas.
+  If you're not explicitly granted access to this device,
+  DISCONNECT NOW.
+  ----------------------------------------------------------

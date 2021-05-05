@@ -1,0 +1,10 @@
+---
+# This playbook configures a Cisco CSR 1000V
+
+- name: configure cisco csr
+  hosts: cisco_csr
+  gather_facts: no
+  # Specify the connection type
+  connection: network_cli
+  roles:
+    - cisco_csr

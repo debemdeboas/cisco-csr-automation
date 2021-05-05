@@ -1,0 +1,52 @@
+---
+
+# Query the Cisco CSR version.
+# This play and the next are only executed when explicitly called (tags: never)
+- name: query cisco csr version
+  cisco.ios.ios_command:
+    commands: show version
+  register: router_version
+  tags:
+    - never
+    - query_version
+
+- name: print cisco csr version
+  debug:
+    var: router_version.stdout_lines
+  tags:
+    - never
+    - query_version  
+
+# Change the login banner message using the `loging_banner` variable
+- name: change login banner message
+  cisco.ios.ios_banner:
+    banner: login
+    text: "{{ login_banner }}"
+    state: present
+  tags: change_login_banner
+
+# Create users and don't allow logins without password
+- name: create users
+  cisco.ios.ios_user:
+    name: "{{ item.user }}"
+    state: present
+    nopassword: no
+  loop: "{{ required_users }}"
+  tags: create_users
+
+# Configures the users' passwords
+- name: change user password
+  cisco.ios.ios_user:
+    name: "{{ item.user }}"
+    configured_password: "{{ item.pass }}"
+    state: present
+    update_password: always
+  loop: "{{ required_users }}"
+  tags: create_users
+
+# Push the ios_template.j2 template to the device
+- name: apply template configuration
+  cisco.ios.ios_config:
+    backup: yes
+    src: ios_template.j2
+  tags: configure_from_template
